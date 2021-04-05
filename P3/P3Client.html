@@ -1,0 +1,301 @@
+<!--Structure for Part 1 of Project XS
+Author: Alexandra Embree (A00443068)
+Author: Tiffany Conrad (A00414194)
+Author: Tahira Tabassum (A00416670)-->
+
+<!DOCTYPE html5>
+<html>
+  <head>
+    <title>Project XS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="css/themes/p1.min.css" />
+    <link rel="stylesheet" href="./css/themes/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href = "./css/themes/p2user.css"/>
+    
+
+
+    <script src="./scripts/jquery-1.11.1.min.js"></script>
+    <script src="./scripts/jquery.mobile-1.4.5.min.js"></script>
+    <script src="./scripts/P3Client.js"></script>
+  </head>
+
+
+  <body onLoad = "init()">
+    <div data-role="page">
+      <div class="ui-content">
+        <div data-role="control-group" data-type="horizontal">
+          <div class="ui-grid-c ui-responsive">
+
+            <div class="ui-block-a">
+              <!-- Tiffany -->
+              <div id="logo">
+                <canvas id="log" width="321" height="178"></canvas>
+              </div>
+              <br />
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <img
+                src="shipCrate.jpg"
+                alt="cratePhoto"
+                height="194px"
+                width="260px"
+              />
+            </div>
+
+            <div class="ui-block-c"><!-- Tahira ROW 1 (Dropdown Menu)-->
+              <br>
+              <br>
+              <br>
+              <select name="chapters" id="chapters" data-track-theme="c" onchange="clearBottom()">
+                <option value="top">VIEW CHAPTERS</option>
+                <option value="1" disabled="true">Ventilation and Drafts</option>
+                <option value="2">Insulation</option>
+                <option value="3" disabled="true">Size and Proportion</option>
+                <option value="4" disabled="true">Immediate Context</option>
+                <option value="5" disabled="true">Construction Details</option>
+                <option value="6" disabled="true">Energy Sources</option>
+                <option value="7" disabled="true">Refrigeration Cycle</option>
+                <option value="8" disabled="true">Psychrometrics</option>
+                <option value="9" disabled="true">Environmental Impacts</option>
+                <option value="10" disabled="true">Radiation and Glazing</option>
+                </select>
+            </div>
+          </div>
+          
+          <div class = "ui-block-d"></div>
+            <div id="clearedArea" class="ui-grid-c ui-responsive"> <!--Start of bottom 5 rows-->
+            <div class="ui-block-a">
+              <!-- Tiffany -->
+              <canvas id="plan" width="321" height="182"></canvas>
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <!--Blank block-->
+            </div>
+
+            <div class="ui-block-c"><!-- Tahira (elevation)-->
+            <div>
+            <canvas
+              id="elevation"
+              width="321"
+              height="154">
+            </canvas>
+            </div>
+          </div>
+
+            <div class="ui-block-d"></div>
+
+            <div class="ui-block-a">
+              
+              <div>
+
+                <select id="degrees" data-theme = "c" data-mini="true">
+
+                  <option value = "top">PLACES WITH DEGREE DAYS</option>
+                  <option value = 13030>NV Alert - 13030</option>
+                  <option value = 9980>NV Iqaluit - 9980</option>
+                  <option value = 9000>NV Resolution Island - 9000</option>
+                  <option value = 8170>NW Yellowknife - 8170</option>
+                  <option value = 7100>ON Attawapiskat - 7100</option>
+                  <option value = 6440>MB FlinFlon - 6440</option>
+                  <option value = 6050>QC Noranda - 6050</option>
+                  <option value = 5670>MB Winnipeg - 5670</option>
+                  <option value = 5500>NB Campbellton - 5500</option>
+                  <option value = 5000>AL Calgary - 5000</option>
+                  <option value = 4800>NL St. Johns - 4800</option>
+                  <option value = 4670>NB Fredericton - 4670</option>
+                  <option value = 4520>ON Ottawa - 4520</option>
+                  <option value = 4460>PE Charlottetown - 4460</option>
+                  <option value = 4300>QC Montreal Centre - 4300</option>
+                  <option value = 4000>NS Halifax - 4000</option>
+                  <option value = 3500>ON Toronto CH - 3500</option>
+                  <option value = 3400>ON Windsor - 3400</option>
+                  <option value = 3000>BC Nanaimo - 3000</option>
+                  <option value = 2900>BC Vancouver - 2900</option>
+                  <option value = 2620>BC White Rock - 2620</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <!--Opaque construction menu-->
+              <select id="insulationOptions" name="insulationOptions" onchange="init()" data-theme = "c" data-mini="true">
+                <option value="top">
+                  OPAQUE CONSTRUCTION WITH R or R/INCH
+                </option>
+                <option value="0">
+                  Bare Container (R1)</option>
+                <option value="0">Plus Interior Finish, Uninsulated (R2)</option>
+                <option value="3">Plus Finish and Cellulose (R3/in)</option>
+                <option value="3">Plus Finish and Fiberglass (R3/in)</option>
+                <option value="6">Plus Finish and Spray Foam (R6/in)</option>
+              </select>
+            </div>
+
+            <div class="ui-block-c"><!-- Tahira (first slider, white box)-->
+            
+              <input type="range" id="opaqueThick" step = "0.5" min="2" max = "14" ui-slider-input="false" data-highlight = "true" data-theme="c" data-track-theme="c"></input>
+
+              <table>
+                <tr>
+                  <td><input class="readout" id="opaqueThickness" type="text"></input></td> 
+                  <td>(") Opaque Thickness</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="ui-block-d"></div>
+
+            <div class="ui-block-a"><!-- Tiffany -->
+              <table>
+                <tr>
+              <td><input id = "opaqueThermal" class="readout" type = "text"></input></td>
+              <td>(R) Opaque Thermal Resistance</td>
+            </tr>
+            </table>
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <input
+                type="range"
+                name="doorThermalResistanceSlider"
+                id="doorSlider"
+                data-theme = "c"
+                onchange = "doorThermalResistanceOutput()"
+                min="2"
+                max="12"
+              />
+              <table>
+                <tr>
+                  <td><input id = "doorSliderReadout" class="readout" type ="text" for ="doorSlider" value="2" min="2" max="12"></input></td>
+                  <td>(R) Door Thermal Resistance</td>
+                </tr>
+              </table>
+              <!--Slider and (R) Door resistance field-->
+            </div>
+
+            
+
+
+
+            <div class="ui-block-c"><!-- Tahira (Second slider, window thermal resistance)-->
+            
+              <input type="range" id="windThermal" value="1" min="1" max="10" onchange="windowThermalResistanceOutput()"></input>
+              <table>
+                <tr>
+                  <td><input id="windowThermal" type="text" class="readout" value="1"></input></td> 
+                  <td>(R) Window Thermal Resistance</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="ui-block-d"></div>
+
+            <div class="ui-block-a">
+              <!-- Tiffany -->
+              <div>
+              <input
+                id="windowSlider"
+                type="range"
+                value="0"
+                min="0"
+                max="108"
+                ui-slider-input="false"
+                data-hightlight="true"
+                data-theme = "c"
+                data-tract-theme="c"
+              ></input>
+              </div>
+              
+                <table>
+                  <tr>
+                    <td><div id="winSlidOutDIV">
+                    <input id = "winSlidOut" class="readout" type = "text" for = "windowSlider" val="0"></input>
+                  </div></td>
+                    <td>
+                      (SQ FT.) Window Area
+                  </td>
+                  </tr>
+                </table>
+
+              
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <!--Effective overall thermal resistance field-->
+              <table>
+                <tr>
+                  <td><input id = "effectiveOverallReadout" class="readout" type ="text"></input></td>
+                  <td>(R) Effective Overall Thermal Resistance</td>
+                </tr>
+              </table>
+            </div>
+
+
+            <div class="ui-block-c"><!-- Tahira (Annual Energy)-->
+              <table>
+                <tr>
+                  <td><input class="readout" id="kWh" type="text"></input></td> 
+                  <td>(kWh) Annual Energy</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="ui-block-d"></div>
+
+
+            <div class="ui-block-a"><!-- Tiffany -->
+              <!-- Graphs -->
+              <select id="graphs">
+                <option>GRAPHS</option>
+                <option disabled="disabled">Graph 1</option>
+                <option disabled="disabled">Graph 2</option>
+              </select>
+            </div>
+
+            <div class="ui-block-b">
+              <!-- Alexandra -->
+              <!--Readouts menu-->
+              <select id="readoutsMenu">
+                <option>READOUTS</option>
+                <option disabled="disabled">Net to Gross Floor Area</option>
+                <option disabled="disabled">
+                  Energy Bill Per Next Floor Area
+                </option>
+              </select>
+            </div>
+
+
+            <div class="ui-block-c"><!-- Tahira -->
+              <select id="concepts" onchange = "concept()">
+                <option value="default">CONCEPTS</option>
+                <option value="1">Local Conditions</option>
+                <option value="2">Annual Energy Budget</option>
+                <option value="3">Drafts and Ventilation</option>
+                <option value="4">Insulation and Heat Loss</option>
+                <option value="5">Material and Insulation</option>
+                <option value="6">Environmental Impact</option>
+              </select>
+            </div>
+
+            <div class="ui-block-d"></div>
+            
+          </div>
+          <div id="text"></div>
+        </div>
+        
+      </div>
+      
+      </div>
+      
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,21 @@
+.ui-slider-input{
+    display:none !important;
+}
+
+.ui-page,
+.ui-header{
+    background: #D0DACF !important;
+}
+
+.readout{
+    width: 50px !important;
+}
+
+#kWh{
+    width: 75px !important;
+}
+
+#elevation {
+ margin: auto;
+ width: 98%;
+}
