@@ -86,7 +86,6 @@ const ADJ_CONTAINER_HEIGHT = CONTAINER_HEIGHT * MAGNIFIER;
 
 /*This function hides or shows the bottom half of the page
 depending on selection in "VIEW CHAPTERS" menu.
-
 Author: Alexandra Embree (A00443068)
 */
 
@@ -149,7 +148,6 @@ function drawLogo() {
 /*
   This function processes input from the opaque Thickness slider and the window slider, then draws the canvases according to 
   the given values of sliders and insulation options
-
   @author Tiffany Conrad (A00414194)
 */
 function processInput() {
@@ -168,10 +166,8 @@ function processInput() {
 
 /*
   This function draws the changes made by the Opaque Thickness Slider, as well as the window Slider.
-
   construction is the number value from the Opaque Thickness Slider
   window is the value from the Window slider
-
   @author Tiffany Conrad-- All drawings made on the plan Canvas
   @author Tahira Tabassum-- All drawings made on Elevation canvas
 */
@@ -519,6 +515,33 @@ function concept() {
   }
 }
 
+
+/***
+ *
+ * This function changes the readout for Door Thermal Resistance
+ *
+ * @author Tiffany Conrad (A00414194)
+ *
+ */
+
+function doorThermal() {
+  let slider = $("#doorSlider").val();
+
+  $("#doorSliderReadout").val(slider);
+}
+
+/***
+ *
+ * This function changes the readout for Window Thermal Resistance
+ *
+ * @author Tiffany Conrad (A00414194)
+ */
+
+function windowThermal() {
+  let slider = $("#windThermal").val();
+  $("#windowThermal").val(slider);
+}
+
 /**
  * This function fills the opaque thickness readout as it corresponds with the slider
  *
@@ -554,7 +577,6 @@ function opaqueThick(construction, constructionType) {
  * @author Alexandra Embree
  */
 function calculateOutputBoxes(construction, window) {
-  //prints opaque thickness in readout box (to be modified***)
   $("#opaqueThickness").val(construction);
 
   // calculates window area in square feet and truncates the result
@@ -622,7 +644,7 @@ function opaqueThermalResistanceOutput(
 
 /** This function calculates the Effective Overall Thermal Resistance using the given formula, which also initially appears blank
  * H = 1/ (((800 - G_output)/D + G_output / F_output + 20 / E_output) / 820)
- * Modified to only return value when opaque thickness >= 4
+ * Modified to only print output box when opaque thickness >= 4
  *
  * @author Tahira Tabassum
  * @author Alexandra Embree
@@ -678,8 +700,10 @@ function annualEnergyOutput() {
   let opaqueThickness = $("#opaqueThickness").val();
 
   if (windowThermal >= 1 && doorThermal >= 2 && $("#degrees").val() != "top") {
+
     // Calculating the Annual Energy Output with the given formula
-    return Math.trunc(
+    return Math.round(
+
       (820 * degrees * 1.8 * 24) /
         effectiveOverallThermalResistanceOutput(
           $("#opaqueThermal").val(),
