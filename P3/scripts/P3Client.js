@@ -155,7 +155,6 @@ function drawLogo() {
 function processInput() {
   // construction slider value
   let construction = $("#opaqueThick").val();
-
   let constructionType = $("#insulationOptions option:selected").val();
   // Window Slider value
   let window = $("#windowSlider").val();
@@ -182,6 +181,7 @@ function draw(construction, window) {
   let plan = document.getElementById("plan");
   // gives 2-dimensional context to Plan
   let contextP = plan.getContext("2d");
+  let windowSquareFootage = $("#winSlidOut").val();
 
   // Where we begin to draw the door
   const DOOR_X = (plan.width * 2) / 3;
@@ -225,7 +225,7 @@ function draw(construction, window) {
   contextE.closePath();
 
   // elevation window
-  if (window >= 4) {
+  if (windowSquareFootage >= 1.5) {
     // Outer Window
     contextE.strokeStyle = "black";
     contextE.lineWidth = MAGNIFIER;
@@ -321,7 +321,7 @@ function draw(construction, window) {
   const PLACEMENT = (window / 2) * MAGNIFIER;
 
   // Draw Plan Window
-  if (window >= 4) {
+  if (windowSquareFootage >= 1.5) {
     contextP.lineWidth = MAGNIFIER;
     contextP.setLineDash([4, 3]);
     contextP.strokeStyle = "black";
