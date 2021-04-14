@@ -21,7 +21,7 @@ Author: Tahira Tabassum (A00416670)-->
   </head>
 
 
-  <body onLoad = "init()">
+  <body onload = "init()">
     <div data-role="page">
       <div class="ui-content">
         <div data-role="control-group" data-type="horizontal">
@@ -51,16 +51,16 @@ Author: Tahira Tabassum (A00416670)-->
               <br>
               <select name="chapters" id="chapters" data-track-theme="c" onchange="clearBottom()">
                 <option value="top">VIEW CHAPTERS</option>
-                <option value="1" disabled="true">Ventilation and Drafts</option>
-                <option value="2">Insulation</option>
-                <option value="3" disabled="true">Size and Proportion</option>
-                <option value="4" disabled="true">Immediate Context</option>
-                <option value="5" disabled="true">Construction Details</option>
-                <option value="6" disabled="true">Energy Sources</option>
-                <option value="7" disabled="true">Refrigeration Cycle</option>
-                <option value="8" disabled="true">Psychrometrics</option>
-                <option value="9" disabled="true">Environmental Impacts</option>
-                <option value="10" disabled="true">Radiation and Glazing</option>
+                <option value="1" class="grey">Ventilation and Drafts</option>
+                <option value="2" class="blue">Insulation</option>
+                <option value="3" class="grey">Size and Proportion</option>
+                <option value="4" class="grey">Immediate Context</option>
+                <option value="5" class="grey">Construction Details</option>
+                <option value="6" class="grey">Energy Sources</option>
+                <option value="7" class="grey">Refrigeration Cycle</option>
+                <option value="8" class="grey">Psychrometrics</option>
+                <option value="9" class="grey">Environmental Impacts</option>
+                <option value="10" class="grey">Radiation and Glazing</option>
                 </select>
             </div>
           </div>
@@ -140,10 +140,9 @@ Author: Tahira Tabassum (A00416670)-->
             <div class="ui-block-c"><!-- Tahira (first slider, white box)-->
             
               <input type="range" id="opaqueThick" step = "0.5" min="2" max = "14" ui-slider-input="false" data-highlight = "true" data-theme="c" data-track-theme="c"></input>
-
               <table>
                 <tr>
-                  <td><input class="readout" id="opaqueThickness" type="text"></input></td> 
+                  <td><input class="readout" value = "2" id="opaqueThickness" type="text"></input></td> 
                   <td>(") Opaque Thickness</td>
                 </tr>
               </table>
@@ -173,7 +172,7 @@ Author: Tahira Tabassum (A00416670)-->
               />
               <table>
                 <tr>
-                  <td><input id = "doorSliderReadout" class="readout" type ="text" for ="doorSlider" value="2" min="2" max="12"></input></td>
+                  <td><input id = "doorSliderReadout" class="readout" type ="text" value="2" min="2" max="12"></input></td>
                   <td>(R) Door Thermal Resistance</td>
                 </tr>
               </table>
@@ -274,7 +273,7 @@ Author: Tahira Tabassum (A00416670)-->
 
 
             <div class="ui-block-c"><!-- Tahira -->
-              <select id="concepts" onchange = "concept()">
+              <select id="concepts" onchange="concept()">
                 <option value="default">CONCEPTS</option>
                 <option value="1">Local Conditions</option>
                 <option value="2">Annual Energy Budget</option>

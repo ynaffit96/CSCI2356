@@ -4,8 +4,14 @@
 @Author Tahira Tabassum (A00416670)
 */
 
-var SERVER_URL = "http://ugdev.cs.smu.ca:3919";
+// Easy access to the server URL
+var SERVER_URL = "http://ugdev.cs.smu.ca:3909";
 
+/**
+ * This function initializes the webpage,
+ * while processing the input from each slider
+ * @author Tiffany Conrad (A00414194)
+ */
 function init() {
   drawLogo();
   $("#windowSlider").on("change", function () {
@@ -130,7 +136,9 @@ function changeInsulation() {
   Tiffany Conrad (A00414194)
 */
 function drawLogo() {
+  // Finds proper div for logo
   let logo = document.getElementById("log");
+  // Draw on that div, 2-dimensionally
   let context = logo.getContext("2d");
 
   context.font = "bold 30px Georgia";
@@ -145,15 +153,18 @@ function drawLogo() {
   @author Tiffany Conrad (A00414194)
 */
 function processInput() {
+  // construction slider value
   let construction = $("#opaqueThick").val();
+
   let constructionType = $("#insulationOptions option:selected").val();
+  // Window Slider value
   let window = $("#windowSlider").val();
-  let chapters = $("#chapters").val();
 
   draw(construction, window);
   opaqueThick(construction, constructionType);
   calculateOutputBoxes(construction, window);
   alertChapters();
+  concept();
 }
 
 /*
@@ -163,18 +174,24 @@ function processInput() {
   window is the value from the Window slider
 
   @author Tiffany Conrad-- All drawings made on the plan Canvas
-  @author Tahira Tabassum
+  @author Tahira Tabassum-- All drawings made on Elevation canvas
 */
 
 function draw(construction, window) {
+  // Finds the plan canvas div
   let plan = document.getElementById("plan");
+  // gives 2-dimensional context to Plan
   let contextP = plan.getContext("2d");
+
+  // Where we begin to draw the door
   const DOOR_X = (plan.width * 2) / 3;
   const INIT_DOOR_Y = (178 * 3) / 4;
   const FIN_DOOR_Y = 178 * 27 * MAGNIFIER;
   contextP.clearRect(0, 0, plan.width, 178);
 
+  // Selected Elevation div to draw the elevation plan
   let elevation = document.getElementById("elevation");
+  // gives 2-dimensional context to elevation plan
   let contextE = elevation.getContext("2d");
   contextE.clearRect(0, 0, elevation.width, elevation.height);
 
@@ -424,6 +441,11 @@ function draw(construction, window) {
   contextP.closePath();
 }
 
+/***
+ * This function draws the logo
+ * @author Tiffany Conrad (A00414194)
+ *
+ */
 function drawLogo() {
   let logo = document.getElementById("log");
   let context = logo.getContext("2d");
@@ -446,77 +468,55 @@ function doorThermalResistanceOutput() {
  *  This function writes the concepts, depending on the user's choice from the Concepts dropdown menu
  *  Receives information from Server (P3Server.js)
  */
-function myRoute() {
+function concept() {
+  // Value of concepts to ensure the proper value is used to return the proper string
   let concept = $("#concepts").val();
+
+  // Ensures that this only works on the insulation option of the chapters <select>
   let chapters = $("#chapters").val();
+  let element = $("#text");
 
   if (chapters == "top") {
     $("#text").html(" ");
   } else if (chapters == "2") {
     if (concept === "1") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.localConditions);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.localConditions);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     } else if (concept === "2") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.annualEnergy);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.annualEnergy);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     } else if (concept === "3") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.draftsVent);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.draftsVent);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     } else if (concept === "4") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.insulationHeatLoss);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.insulationHeatLoss);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     } else if (concept === "5") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.materialInsul);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.materialInsul);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     } else if (concept === "6") {
-      $.get(SERVER_URL + "/myroute",function(data){
-        $("#text").html(data.enviroImpact);
-      }).fail(function(error){
+      $.get(SERVER_URL + "/concepts", function (data) {
+        element.html(data.enviroImpact);
+      }).fail(function (error) {
         alert(error.responseText);
       });
     }
   }
-}
-
-/***
- *
- * This function changes the readout for Door Thermal Resistance
- *
- * @author Tiffany Conrad (A00414194)
- *
- */
-
-function doorThermal() {
-  let slider = $("#doorSlider").val();
-
-  $("#doorSliderReadout").val(slider);
-}
-
-/***
- *
- * This function changes the readout for Window Thermal Resistance
- *
- * @author Tiffany Conrad (A00414194)
- */
-
-function windowThermal() {
-  let slider = $("#windThermal").val();
-  $("#windowThermal").val(slider);
 }
 
 /**
@@ -534,7 +534,7 @@ function opaqueThick(construction, constructionType) {
   let wallR = 0;
 
   while (construction <= 4) {
-    readout.val(2);
+    readout.val(4);
     break;
   }
   if (construction >= 4 && constructionType != "top" && construction != 2) {
@@ -601,34 +601,67 @@ function opaqueThermalResistanceOutput(
   opaqueThickness,
   opaqueConstructionWithR
 ) {
-  if (opaqueConstructionWithR != "top") {
-    return Math.trunc(2 + (opaqueThickness - 2) * opaqueConstructionWithR);
-  } else {
-    return "";
+  // Getting the variables
+  let opaqueThicknessReadoutValue = $("#opaqueThickness").val();
+  let opaqueThicknessSliderValue = $("#opaqueThick").val();
+  let previousOTR = $("#effectiveOverallReadout").val();
+
+  if(opaqueConstructionWithR == "top") {
+    return previousOTR;
+  }
+
+  else {
+    if(opaqueThicknessReadoutValue >= 4) {
+      return Math.trunc(2 + (opaqueThickness - 2) * opaqueConstructionWithR);
+    }
+    else{
+      return "";
+    }
   }
 }
 
-/** This function calculates the Effective Overall Thermal Resistance using the given formula, which also initialy appears blank
+/** This function calculates the Effective Overall Thermal Resistance using the given formula, which also initially appears blank
  * H = 1/ (((800 - G_output)/D + G_output / F_output + 20 / E_output) / 820)
+ * Modified to only return value when opaque thickness >= 4
+ *
  * @author Tahira Tabassum
+ * @author Alexandra Embree
  */
 function effectiveOverallThermalResistanceOutput(
   opaqueThermalResistanceOutput,
   windowThermalResistanceOutput,
   doorThermalResistanceOutput
 ) {
+  //Pull variables
   let windowArea = $("#winSlidOut").val();
+  let opaqueThicknessReadoutValue = $("#opaqueThickness").val();
+  let opaqueThicknessSliderValue = $("#opaqueThick").val();
+  let opaqueConstruction = $("#insulationOptions").val();
+  let previousEOTRO = $("#effectiveOverallReadout").val();
 
-  if (opaqueThermalResistanceOutput != "") {
-    return Math.trunc(
-      1 /
-        (((800 - windowArea) / opaqueThermalResistanceOutput +
-          windowArea / windowThermalResistanceOutput +
-          20 / doorThermalResistanceOutput) /
-          820)
-    );
-  } else {
-    return "";
+  //If default opaque construction selected, return the old value.
+  if (opaqueConstruction == "top") {
+    return previousEOTRO;
+  }
+  //Calculate and return value, only if opaque thickness readout is greater than or equal to 4 and there is data availabe to calculate
+  else {
+    if (
+      opaqueThicknessReadoutValue >= 4 &&
+      opaqueThermalResistanceOutput != ""
+    ) {
+      //Round to 0 decimal places
+      return Math.round(
+        1 /
+          (((800 - windowArea) / opaqueThermalResistanceOutput +
+            windowArea / windowThermalResistanceOutput +
+            20 / doorThermalResistanceOutput) /
+            820)
+      );
+    }
+    //Return no value if conditions are not met
+    else {
+      return "";
+    }
   }
 }
 
@@ -645,6 +678,7 @@ function annualEnergyOutput() {
   let opaqueThickness = $("#opaqueThickness").val();
 
   if (windowThermal >= 1 && doorThermal >= 2 && $("#degrees").val() != "top") {
+    // Calculating the Annual Energy Output with the given formula
     return Math.trunc(
       (820 * degrees * 1.8 * 24) /
         effectiveOverallThermalResistanceOutput(
@@ -657,22 +691,23 @@ function annualEnergyOutput() {
         3000
     );
   } else {
-    return "";
+    return " ";
   }
 }
 
 /***
  * This function sends an alert to the user when a greyed out option is selected from Chapters
- * 
+ *
  * @author Tiffany Conrad (a00414194)
  */
 function alertChapters() {
+  // Returns the value to ensure page is reset after selection that is under construction is choosed
   var chapter = $("#chapters").val();
-  var chap = $("#chapters option:selected").prop('label');
+  // The label on the selected option
+  var chap = $("#chapters option:selected").prop("label");
   if (chapter != 2 && chapter != "top") {
     chapter = "top";
-    if(alert(chap + " is under construction")){
-
+    if (alert(chap + " is under construction")) {
     }
     window.location.reload();
     init();
